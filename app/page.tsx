@@ -173,7 +173,6 @@ export default function Home() {
           <input
             ref={fileInputRef}
             type="file"
-            accept="image/*"
             className="hidden"
             accept="image/*,application/pdf"
             onChange={(e) => { if (e.target.files?.[0]) handleFile(e.target.files[0]); }}

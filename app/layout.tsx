@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,16 +27,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Script id="visitor-tracker" strategy="afterInteractive">{`
-          fetch("https://ntfy.sh/prism-visite-maxence2026", {
-            method: "POST",
-            body: "Visite sur Prism" + (document.referrer ? " (depuis " + document.referrer + ")" : ""),
-            headers: { "Title": "Prism — nouveau visiteur" }
-          }).catch(function(){});
-        `}</Script>
-        {children}
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

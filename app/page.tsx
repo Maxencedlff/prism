@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 type Mode = "document" | "client" | "contract";
 
@@ -29,6 +29,14 @@ const MODES = [
 ];
 
 export default function Home() {
+  useEffect(() => {
+    fetch("https://ntfy.sh/prism-visite-maxence2026", {
+      method: "POST",
+      body: "Visite sur Prism" + (document.referrer ? ` (depuis ${document.referrer})` : ""),
+      headers: { Title: "Prism — nouveau visiteur" },
+    }).catch(() => {});
+  }, []);
+
   const [mode, setMode] = useState<Mode>("document");
   const [text, setText] = useState("");
   const [image, setImage] = useState<{ data: string; type: string; name: string } | null>(null);

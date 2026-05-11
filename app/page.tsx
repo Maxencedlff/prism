@@ -30,10 +30,10 @@ const MODES = [
 
 export default function Home() {
   useEffect(() => {
-    fetch("https://ntfy.sh/prism-visite-maxence2026", {
+    fetch("/api/track", {
       method: "POST",
-      body: "Visite sur Prism" + (document.referrer ? ` (depuis ${document.referrer})` : ""),
-      headers: { Title: "Prism — nouveau visiteur" },
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ referrer: document.referrer }),
     }).catch(() => {});
   }, []);
 

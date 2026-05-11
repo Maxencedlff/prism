@@ -34,7 +34,21 @@ export default function Home() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ referrer: document.referrer }),
-    }).catch(() => {});
+    })
+      .then((r) => r.json())
+      .then(({ ip, browser, os, referrer: ref }) => {
+        const lines = [
+          `Référent : ${ref}`,
+          `IP : ${ip}`,
+          `Navigateur : ${browser} · ${os}`,
+        ].join("\n");
+        fetch("https://ntfy.sh/prism-visite-maxence2026", {
+          method: "POST",
+          body: lines,
+          headers: { Title: "Prism — nouveau visiteur" },
+        });
+      })
+      .catch(() => {});
   }, []);
 
   const [mode, setMode] = useState<Mode>("document");

@@ -4,11 +4,10 @@ import { useEffect } from "react";
 
 export default function VisitorTracker() {
   useEffect(() => {
-    const ref = document.referrer ? ` (depuis ${document.referrer})` : "";
-    fetch("https://ntfy.sh/prism-visite-maxence2026", {
+    fetch("/api/track", {
       method: "POST",
-      body: `Visite sur Prism${ref}`,
-      headers: { Title: "Prism — nouveau visiteur" },
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ referrer: document.referrer }),
     }).catch(() => {});
   }, []);
 
